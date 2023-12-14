@@ -1,0 +1,40 @@
+version: '3'
+services:
+  laravel:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - react
+      - mysql
+    volumes:
+      - ./api:/var/www/html
+      # - ./api/storage:/var/www/html/storage
+      # - ./api/bootstrap/cache:/var/www/html/bootstrap/cache
+    # environment:
+    #   DB_CONNECTION: mysql
+    #   DB_HOST: mysql
+    #   DB_PORT: 3306
+    #   DB_DATABASE: takehome
+    #   DB_USERNAME: root
+    #   DB_PASSWORD: root_password
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: takehome
+      MYSQL_USER: takehome
+      MYSQL_PASSWORD: takehome
+  react:
+    build:
+      context: ./react
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./react:/app
+      - /app/node_modules
