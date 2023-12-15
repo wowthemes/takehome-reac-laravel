@@ -12,3 +12,5 @@ php artisan migrate --force --seed
 exec apache2-foreground
 
 supervisord -n
+
+php artisan app:fetch-article-data

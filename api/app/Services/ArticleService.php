@@ -70,7 +70,7 @@ class ArticleService
         
         try{
             // Send the request to NewsAPI
-            $response = Http::withUrlParameters($params)->get($newsApi->base_url . 'v2/top-headlines');
+            $response = Http::get($newsApi->base_url . 'v2/top-headlines', $params);
 
             if ($response->failed()) {
                 $response->throw();
@@ -227,7 +227,7 @@ class ArticleService
         }
 
         try {
-            $response = Http::withUrlParameters($params)->get($source->base_url . $uri);
+            $response = Http::get($source->base_url . $uri, $params);
 
             if ($response->failed()) {
                 $response->throw();
